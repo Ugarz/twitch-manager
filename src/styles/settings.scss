@@ -11,7 +11,9 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 $black: #000;
+$black-twitch: #0e0e10;
 
+$violet-twitch: #9147ff;
 $purple: #6f42c1;
 $indigo: #6610f2;
 $blue: #0b70b5;
@@ -25,8 +27,8 @@ $red: #d9534f;
 $truered: #f00;
 $pink: #e83e8c;
 
-$primary: $blue;
-$secondary: $orange;
+$primary: $violet-twitch;
+$secondary: $black-twitch;
 $gray: $gray-500;
 $success: $green;
 $info: $cyan;
