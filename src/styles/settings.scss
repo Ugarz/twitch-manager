@@ -1,0 +1,142 @@
+@import "~bootswatch/dist/litera/variables";
+
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #ddd;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000;
+
+$purple: #6f42c1;
+$indigo: #6610f2;
+$blue: #0b70b5;
+$cyan: #17a2b8;
+$teal: #20c997;
+$green: #02B875;
+$yellow: #f0ad4e;
+$orange: #ed8b18;
+$deep-orange: #ff5722;
+$red: #d9534f;
+$truered: #f00;
+$pink: #e83e8c;
+
+$primary: $blue;
+$secondary: $orange;
+$gray: $gray-500;
+$success: $green;
+$info: $cyan;
+$warning: $orange;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-800;
+
+// Status colors
+
+$status-colors: ('init': $gray-500,
+  'sent': $gray-500,
+  'abort': $deep-orange,
+  'opened': $blue,
+  'payment-started': $cyan,
+  'payment-cancelled': $yellow,
+  'payment-accepted': $orange,
+  'payment-pending': $yellow,
+  'payment-pending_risk': $truered,
+  'payment-complete': $green,
+  'payment-refused': $red,
+  'payment-error': $red,
+  'expired': $gray-700,
+);
+
+$yiq-contrasted-threshold: 190;
+
+// Body
+
+$body-color: $gray-800;
+
+// Fonts
+
+$font-size-base: 1.063rem;
+
+$headings-font-weight: 500;
+
+// Tables
+
+$table-border-color: rgba(0, 0, 0, 0.1);
+
+// Buttons
+
+$input-btn-padding-y: 0.5rem;
+$input-btn-padding-x: 1.1rem;
+
+// Forms
+
+$input-border-color: rgba(0, 0, 0, .1);
+
+$input-group-addon-bg: $gray-200;
+
+// Navbar
+
+$navbar-dark-color: rgba($white, .6);
+$navbar-dark-hover-color: $white;
+
+$navbar-light-hover-color: $orange;
+$navbar-light-active-color: $body-color;
+
+// Badges
+
+$badge-font-weight: normal;
+$badge-padding-y: 0.6em;
+$badge-padding-x: 1.2em;
+
+
+
+// Vue-Select
+
+$vs-colors: (lightest: rgba(60, 60, 60, 0.26),
+  light: rgba(60, 60, 60, 0.5),
+  dark: #333,
+  darkest: rgba(0, 0, 0, .15),
+);
+
+//  Global Component Variables
+$vs-component-line-height: 1.4;
+$vs-component-placeholder-color: inherit;
+
+//  Active State
+$vs-state-active-bg: $primary;
+$vs-state-active-color: #fff;
+
+//  Disabled State
+$vs-state-disabled-bg: rgb(248, 248, 248);
+$vs-state-disabled-color: map_get($vs-colors, 'light');
+$vs-state-disabled-controls-color: map_get($vs-colors, 'light');
+$vs-state-disabled-cursor: not-allowed;
+
+//  Borders
+$vs-border-width: 1px;
+$vs-border-style: solid;
+$vs-border-radius: 4px;
+$vs-border-color: $input-border-color;
+
+//  Component Controls: Clear, Open Indicator
+$vs-controls-color: map_get($vs-colors, 'light');
+$vs-controls-size: 1;
+$vs-controls-deselect-text-shadow: 0 1px 0 #fff;
+
+//  Selected
+$vs-selected-bg: #f0f0f0;
+$vs-selected-border-color: $vs-border-color;
+$vs-selected-border-style: $vs-border-style;
+$vs-selected-border-width: $vs-border-width;
+
+//  Dropdown
+$vs-dropdown-z-index: 1000;
+$vs-dropdown-min-width: 160px;
+$vs-dropdown-max-height: 350px;
+$vs-dropdown-box-shadow: 0px 5px 10px 0 rgba(#000, .1);
+$vs-dropdown-bg: #fff;
