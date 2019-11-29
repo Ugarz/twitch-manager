@@ -5,23 +5,21 @@ import Cheh from '../views/Cheh.vue';
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home,
-  },
-  {
-    path: '/',
-    name: 'cheh',
-    component: Cheh,
-  },
-];
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home,
+    },
+    {
+      path: '/cheh/:name',
+      name: 'cheh',
+      component: Cheh,
+    },
+  ]
 });
 
 export default router;
