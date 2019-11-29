@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>Click wesh</p>
     <button
     @click="goCheh"
     type="button"
@@ -18,3 +19,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: lightcoral;
+  color: white;
+  height: 100vh;
+}
+</style>
