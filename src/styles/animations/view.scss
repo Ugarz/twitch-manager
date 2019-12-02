@@ -1,9 +1,16 @@
 .view-enter-active,
 .view-leave-active {
-  transition: opacity .8s;
+  transition: opacity .3s;
 }
 .view-enter,
 .view-leave-to /* .view-leave-active below version 2.1.8 */ {
-  opacity: 0;
+  opacity: .7;
 }
 
+.view-enter {
+  background-color: black;
+  opacity: 1;
+}
+.view-enter-to {
+  opacity: 0;
+}

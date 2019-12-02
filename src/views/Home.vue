@@ -1,33 +1,29 @@
 <template>
-  <div>
-    <button
-    @click="show = !show;"
-    type="button"
-    class="btn btn-primary">Show !</button>
-    <transition name="slide">
-       <h1 v-if="show">Vue transition</h1>
-    </transition>
-    <p>Click wesh</p>
-    <a href="https://clips-media-assets2.twitch.tv/35758059280-offset-4442.mp4">Download</a>
-    <button
-    @click="goCheh"
-    type="button"
-    class="btn btn-primary">Cheh !</button>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Twitch Manager</h1>
+      <p class="lead">A easier way to manage your clips.</p>
+      <transition name="slide">
+        <button
+          @click="goClipsView"
+          type="button"
+          class="btn btn-primary">Dashboard</button>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
 import router from '../router/index';
+import { Authenticate } from '../helpers/twitch'
 
 export default {
-  data(){
-    return {
-      show: false
-    }
-  },
   methods: {
-    goCheh() {
-      router.push({name: 'cheh', params : { name: 'Carbow' }});
+    goClipsView() {
+      router.push({ name: 'clips', params : { name: 'Carbow' }});
+    },
+    Auth(){
+      Authenticate()
     }
   }
 }

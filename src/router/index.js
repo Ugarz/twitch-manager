@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Cheh from '../views/Cheh.vue';
+import Clips from '../views/Clips.vue';
 
 Vue.use(VueRouter);
 
@@ -15,9 +15,9 @@ const router = new VueRouter({
       component: Home,
     },
     {
-      path: '/cheh/:name',
-      name: 'cheh',
-      component: Cheh,
+      path: '/clips/:name',
+      name: 'clips',
+      component: Clips,
     },
   ]
 });

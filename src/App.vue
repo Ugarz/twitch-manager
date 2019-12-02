@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition appear name="view">
+    <transition name="view">
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
@@ -9,8 +9,12 @@
 </template>
 
 <style>
-@import './styles/animations/view.scss';
-body {
-  background-color: black;
+.view-enter-active,
+.view-leave-active {
+  transition: opacity .3s;
+}
+.view-enter,
+.view-leave-to /* .view-leave-active below version 2.1.8 */ {
+  opacity: .7;
 }
 </style>
