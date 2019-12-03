@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  props: ['clips']
-}
+  props: ['clips'],
+};
 </script>
 
 <style lang="scss" scoped>

@@ -9,24 +9,27 @@
           type="button"
           class="btn btn-primary">Dashboard</button>
       </transition>
+      <button
+        @click="Authenticate"
+        type="button"
+        class="btn btn-primary">Authenticate</button>
     </div>
   </div>
 </template>
 
 <script>
-import router from '../router/index';
-import { Authenticate } from '../helpers/twitch'
+import { mapActions } from 'vuex';
 
 export default {
   methods: {
+    ...mapActions({
+      Authenticate: 'Authenticate',
+    }),
     goClipsView() {
-      router.push({ name: 'clips', params : { name: 'Carbow' }});
+      this.$router.push({ name: 'clips', params: { name: 'Carbow' } });
     },
-    Auth(){
-      Authenticate()
-    }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

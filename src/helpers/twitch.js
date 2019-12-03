@@ -1,17 +1,26 @@
 const rp = require('request-promise');
-const { CLIENT_ID } = process.env;
 
-export function Authenticate() {
-  rp(
-    `https://id.twitch.tv/oauth2/authorize?&response_type=token+id_token&client_id=${CLIENT_ID}&redirect_uri=http://localhost:8080/clips/Carbow`
-  );
+export function OAuth(client_id = 'n145mm58gf4ygyaojt9lsgq8xcgl4u') {
+  const options = {
+    uri: 'https://id.twitch.tv/oauth2/authorize',
+    qs: {
+      response_type: 'token+id_token',
+      redirect_uri: 'http://localhost:8080/clips/Carbow',
+      client_id,
+    },
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    json: true,
+  };
+  return rp(options);
 }
 
 export function getClips() {
-  var options = {
+  const options = {
     uri: 'https://api.twitch.tv/helix/clips',
     qs: {
-      broadcaster_id: 132041668
+      broadcaster_id: 132041668,
     },
     headers: {
       'Client-ID': 'n145mm58gf4ygyaojt9lsgq8xcgl4u',
@@ -19,7 +28,7 @@ export function getClips() {
     },
     json: true,
   };
-  return rp(options)
+  return rp(options);
 }
 
 export function getInfos(user = 'Carbow') {
@@ -30,6 +39,5 @@ export function getInfos(user = 'Carbow') {
       Accept: 'application/vnd.twitchtv.v5+json',
     },
   };
-  console.log(options)
-  return fetch(url, options)
+  return fetch(url, options);
 }

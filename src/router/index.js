@@ -19,7 +19,7 @@ const router = new VueRouter({
       name: 'clips',
       component: Clips,
     },
-  ]
+  ],
 });
 
 export default router;
