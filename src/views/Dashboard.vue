@@ -1,5 +1,7 @@
 <template>
   <div>
-    Dashboard
+    {{ $route.query.access_token }}
+    {{ $route.query.token_type }}
+    {{ $route.query.scope }}
   </div>
 </template>

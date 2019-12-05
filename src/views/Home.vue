@@ -9,10 +9,8 @@
           type="button"
           class="btn btn-primary">Dashboard</button>
       </transition>
-      <button
-        @click="Authenticate"
-        type="button"
-        class="btn btn-primary">Authenticate</button>
+      <a href="https://id.twitch.tv/oauth2/authorize?client_id=n145mm58gf4ygyaojt9lsgq8xcgl4u&redirect_uri=http://localhost:8080/dashboard&response_type=token&scope=clips:edit">Login</a>
+
     </div>
   </div>
 </template>
