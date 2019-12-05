@@ -15,6 +15,7 @@ const router = new VueRouter({
       path: '/',
       name: 'home',
       component: Home,
+      props: { default: false, env: process.env },
     },
     {
       path: '/clips/:name',
@@ -25,6 +26,7 @@ const router = new VueRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+      props: { default: false, env: process.env },
     },
   ],
 });

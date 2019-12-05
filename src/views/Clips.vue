@@ -4,10 +4,7 @@
       <h1 class="display-4">Welcome {{ $route.params.name }} !</h1>
       <p class="lead">The dashboard allows you to list and download your clips from
         Twitch in an easy way.</p>
-      <button
-        @click="goHome"
-        type="button"
-        class="btn btn-secondary">Home</button>
+      <router-link to="/">Go Home</router-link>
     </div>
     <ClipsList :clips="user" />
   </div>
@@ -41,6 +38,19 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/settings.scss';
 @import '../styles/animations/slide.scss';
+
+a {
+  border: $secondary 2px solid;
+  padding: .5em 1em;
+  margin: 1em;
+  border-radius: .5em;
+  text-decoration: none;
+  color: $secondary;
+}
+a:hover {
+  border: $orange 2px solid;
+  color: $orange;
+}
 
 div {
   display: flex;

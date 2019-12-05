@@ -1,15 +1,13 @@
 const rp = require('request-promise');
 
-export function OAuth(client_id = 'n145mm58gf4ygyaojt9lsgq8xcgl4u') {
+const { VUE_APP_CLIENT_ID, VUE_APP_TWITCH_USER } = process.env;
+
+export function getUser() {
   const options = {
-    uri: 'https://id.twitch.tv/oauth2/authorize',
+    uri: 'https://api.twitch.tv/helix/users',
     qs: {
-      response_type: 'token+id_token',
-      redirect_uri: 'http://localhost:8080/clips/Carbow',
-      client_id,
-    },
-    headers: {
-      'Access-Control-Allow-Origin': '*',
+      id: 'token+id_token',
+      login: 'http://localhost:8080/clips/Carbow',
     },
     json: true,
   };
@@ -23,7 +21,7 @@ export function getClips() {
       broadcaster_id: 132041668,
     },
     headers: {
-      'Client-ID': 'n145mm58gf4ygyaojt9lsgq8xcgl4u',
+      'Client-ID': VUE_APP_CLIENT_ID,
       Accept: 'application/vnd.twitchtv.v5+json',
     },
     json: true,
@@ -31,13 +29,13 @@ export function getClips() {
   return rp(options);
 }
 
-export function getInfos(user = 'Carbow') {
-  const url = `https://api.twitch.tv/helix/users?login=${user}`;
+export function getInfos(user = VUE_APP_TWITCH_USER) {
   const options = {
+    url: `https://api.twitch.tv/helix/users?login=${user}`,
     headers: {
-      'Client-ID': 'n145mm58gf4ygyaojt9lsgq8xcgl4u',
+      'Client-ID': VUE_APP_CLIENT_ID,
       Accept: 'application/vnd.twitchtv.v5+json',
     },
   };
-  return fetch(url, options);
+  return rp(options);
 }

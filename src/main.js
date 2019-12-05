@@ -5,8 +5,6 @@ import store from './store';
 
 import './styles/main.scss';
 
-require('dotenv').config();
-
 Vue.config.productionTip = false;
 
 new Vue({

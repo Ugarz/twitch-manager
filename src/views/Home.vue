@@ -3,26 +3,20 @@
     <div class="container">
       <h1 class="display-4">Twitch Manager</h1>
       <p class="lead">A easier way to manage your clips.</p>
-      <transition name="slide">
-        <button
-          @click="goClipsView"
-          type="button"
-          class="btn btn-primary">Dashboard</button>
-      </transition>
-      <a href="https://id.twitch.tv/oauth2/authorize?client_id=n145mm58gf4ygyaojt9lsgq8xcgl4u&redirect_uri=http://localhost:8080/dashboard&response_type=token&scope=clips:edit">Login</a>
-
+      <a :href="authUrl">Login</a>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
+  props: ['env'],
+  data() {
+    return {
+      authUrl: `https://id.twitch.tv/oauth2/authorize?client_id=${this.env.VUE_APP_CLIENT_ID}&redirect_uri=${this.env.VUE_APP_URI_REDIRECTION}&response_type=token&scope=clips:edit`,
+    };
+  },
   methods: {
-    ...mapActions({
-      Authenticate: 'Authenticate',
-    }),
     goClipsView() {
       this.$router.push({ name: 'clips', params: { name: 'Carbow' } });
     },
