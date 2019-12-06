@@ -13,7 +13,8 @@ export default {
   props: ['env'],
   data() {
     return {
-      authUrl: `https://id.twitch.tv/oauth2/authorize?client_id=${this.env.VUE_APP_CLIENT_ID}&redirect_uri=${this.env.VUE_APP_URI_REDIRECTION}&response_type=token&scope=clips:edit`,
+      // authUrl: `https://id.twitch.tv/oauth2/authorize?client_id=${this.env.VUE_APP_CLIENT_ID}&redirect_uri=${this.env.VUE_APP_URI_REDIRECTION}&response_type=token&scope=clips:edit`,
+      authUrl: `https://id.twitch.tv/oauth2/authorize?client_id=${this.env.VUE_APP_CLIENT_ID}&redirect_uri=${this.env.VUE_APP_URI_REDIRECTION}&response_type=token+id_token&scope=clips:edit%20openid&claims={"id_token":{"email":null,"email_verified":null,"preferred_username":null},"userinfo":{"picture":null}}`,
     };
   },
   methods: {
