@@ -1,6 +1,25 @@
-const rp = require('request-promise');
+import rp from 'request-promise';
+import IdTokenVerifier from 'idtoken-verifier';
 
 const { VUE_APP_CLIENT_ID, VUE_APP_TWITCH_USER } = process.env;
+
+export function JWTdecrypt(jwt) {
+  const verifier = new IdTokenVerifier({
+    issuer: 'Twitch',
+    audience: jwt,
+  });
+
+  verifier.verify(id_token, nonce, (error, payload) => {
+    if (error) {
+      // handle the error
+
+    }
+    console.log('id_token', id_token);
+    console.log('nonce', nonce);
+    console.log('JWT Payload', payload);
+    // do something with `payload`
+  });
+}
 
 // eslint-disable-next-line import/prefer-default-export
 export function getInfos(user = VUE_APP_TWITCH_USER) {

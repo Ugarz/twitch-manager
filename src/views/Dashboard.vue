@@ -58,6 +58,9 @@ export default {
       token_type: this.token_type,
     });
   },
+  beforeUpdate() {
+    console.log('before update');
+  },
 };
 </script>
 

@@ -8,10 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.19.0",
     "bootstrap": "^4.4.1",
     "bootswatch": "^4.4.1",
     "core-js": "^3.4.7",
+    "idtoken-verifier": "^2.0.0",
     "request-promise": "^4.2.5",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",
