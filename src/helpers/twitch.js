@@ -1,25 +1,7 @@
 import rp from 'request-promise';
-import IdTokenVerifier from 'idtoken-verifier';
+import r from 'request';
 
 const { VUE_APP_CLIENT_ID, VUE_APP_TWITCH_USER } = process.env;
-
-export function JWTdecrypt(jwt) {
-  const verifier = new IdTokenVerifier({
-    issuer: 'Twitch',
-    audience: jwt,
-  });
-
-  verifier.verify(id_token, nonce, (error, payload) => {
-    if (error) {
-      // handle the error
-
-    }
-    console.log('id_token', id_token);
-    console.log('nonce', nonce);
-    console.log('JWT Payload', payload);
-    // do something with `payload`
-  });
-}
 
 // eslint-disable-next-line import/prefer-default-export
 export function getInfos(user = VUE_APP_TWITCH_USER) {
@@ -40,19 +22,49 @@ export function getUserInfos(accessToken) {
       Authorization: `Bearer ${accessToken}`,
     },
   };
-  return rp(options)
-    .catch((error) => console.log(error));
+  return rp(options);
 }
 
 export function getAllClips(broadcasterId) {
+  console.log('Fetching clips for', broadcasterId);
   const options = {
     url: 'https://api.twitch.tv/helix/clips',
     qs: {
       broadcaster_id: broadcasterId,
     },
-    headers: {},
+    headers: {
+      'Client-ID': VUE_APP_CLIENT_ID,
+    },
   };
-  return rp(options);
+  return rp(options)
+    .then((clips) => {
+      console.log('Clips found !', clips);
+      console.log('Data found !', clips.data);
+      return clips.data;
+    })
+    .catch((error) => console.log('Whoops error while fetching', error));
+}
+
+export function getAllClipsNoPromise(broadcasterId) {
+  console.log('Fetching clips for', broadcasterId);
+
+  const options = {
+    url: `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}`,
+    headers: {
+      'Client-ID': VUE_APP_CLIENT_ID,
+    },
+  };
+
+  function callback(error, response, clips) {
+    if (!error && response.statusCode === 200) {
+      console.log('clipsssss', clips.data[0].id);
+      // const clips = JSON.parse(body);
+      return clips.data;
+    }
+    throw new Error('Error while fetching clips');
+  }
+
+  return r(options, callback);
 }
 
 export function getClip(broadcasterId, clipId) {
