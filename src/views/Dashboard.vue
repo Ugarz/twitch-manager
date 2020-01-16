@@ -93,5 +93,10 @@ pre {
 }
 li {
   list-style: none;
+  padding: 1em;
+}
+ul {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
