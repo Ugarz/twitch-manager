@@ -5,19 +5,18 @@
       <li v-for="(clip, index) in clips" :key="index">
         <div>
           <h3>{{clip.title}}</h3>
-          <!-- <img :src="clip.thumbnail_url" :alt="clip.title"> -->
-          <object bgcolor="#000000" data="http://www.twitch.tv/widgets/archive_embed_player.swf" height="378" id="clip_embed_player_flash" type="application/x-shockwave-flash" width="620">
-            <param name="movie" value="http://www.twitch.tv/widgets/archive_embed_player.swf" />
-            <param name="allowScriptAccess" value="always" />
-            <param name="allowNetworking" value="all" />
-            <param name="allowFullScreen" value="true" />
-            <param name="flashvars"
-              value="channel=twitch
-                &amp;auto_play=false
-                &amp;start_volume=25
-                &amp;videoId=c5894318
-                &amp;device_id=SLJemBs" />
-          </object>
+
+          <!-- https://dev.twitch.tv/docs/embed/video-and-clips -->
+          <iframe
+              :src="formatUrl(clip.url)"
+              autoplay="false"
+              height="360"
+              width="640"
+              frameborder="0"
+              scrolling="no"
+              allowfullscreen="true">
+          </iframe>
+
           <p>Clip réalisé par {{clip.creator_name}} pour {{clip.broadcaster_name}}</p>
           <span>{{clip.view_count}} Views</span>
           <span>Créé le {{clip.created_at}}</span>
@@ -50,6 +49,12 @@ export default {
     async updateClips() {
       const broadcasterId = fetchKey('sub');
       this.clips = await getAllClips(broadcasterId);
+    },
+    formatUrl(url) {
+      // https://clips.twitch.tv/embed?clip=IncredulousAbstemiousFennelImGlitch
+      // https://clips.twitch.tv/TawdryAthleticBeefTooSpicy
+      const code = url.split('.tv/')[1];
+      return `https://clips.twitch.tv/embed?clip=${code}&autoplay=false`;
     },
   },
   computed: {
