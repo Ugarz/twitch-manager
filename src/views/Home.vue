@@ -1,9 +1,9 @@
 <template>
-  <div class="jumbotron jumbotron-fluid">
+  <div class="home jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">Twitch Manager</h1>
-      <p class="lead">An easier way to manage your clips.</p>
-      <a :href="authUrl">Login</a>
+      <h1 class="title display-4">TaMèreEnClip!</h1>
+      <p class="lead">Parce qu'elle ne sera pas toujours là pour laver tes clips!</p>
+      <a :href="authUrl">Connexion</a>
     </div>
   </div>
 </template>
@@ -28,6 +28,17 @@ export default {
 @import '../styles/settings.scss';
 @import '../styles/animations/slide.scss';
 
+@import url('https://fonts.googleapis.com/css?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bangers|Open+Sans&display=swap');
+
+.home {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+}
+.title {
+  font-family: 'Bangers', cursive;
+  font-size: 4em;
+}
 a {
   border: $primary 2px solid;
   padding: .5em 1em;
