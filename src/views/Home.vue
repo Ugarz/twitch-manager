@@ -1,9 +1,9 @@
 <template>
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">Twitch Manager</h1>
-      <p class="lead">A easier way to manage your clips.</p>
-      <a :href="authUrl">Login</a>
+      <h1 class="display-4">Stream Manager</h1>
+      <p class="lead">An easier way to manage your clips on Twitch.</p>
+      <a :href="authUrl">Log me in</a>
     </div>
   </div>
 </template>

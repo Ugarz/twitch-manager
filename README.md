@@ -1,4 +1,4 @@
-# twitch-manager
+# stream-manager
 
 ## Requirements ENV
 Your have to fullfill the environments
