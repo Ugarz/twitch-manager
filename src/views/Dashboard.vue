@@ -1,16 +1,40 @@
 <template>
-  <div>
-    <router-link to="/">Go Home</router-link>
-    <ul>
+  <div class="dashboard">
+    <nav class="nav nav-pills flex-column flex-sm-row">
+      <a class="flex-sm-fill text-sm-center nav-link active" href="#">Dashboard</a>
+      <a class="flex-sm-fill text-sm-center nav-link" href="#">Télécharger les clips</a>
+      <a class="flex-sm-fill text-sm-center nav-link" href="https://www.twitch.tv/manager/clips" target="blank">Twitch account</a>
+      <btn class="flex-sm-fill text-sm-center nav-link"
+        href="#"
+        tabindex="-1"
+        aria-disabled="true">Déconnexion</btn>
+    </nav>
+    <ul class="clips-list">
       <li v-for="(clip, index) in clips" :key="index">
-        <div>
-          <h3>{{clip.title}}</h3>
-          <!-- <img :src="clip.thumbnail_url" :alt="clip.title"> -->
-
-          <p>Clip réalisé par {{clip.creator_name}} pour {{clip.broadcaster_name}}</p>
-          <span>{{clip.view_count}} Views</span>
-          <span>Créé le {{clip.created_at}}</span>
+        <div class="clip-item">
+          <h4>{{clip.title}}</h4>
+          <p>
+            <span>Créé le {{formatDate(clip.created_at)}}</span> - Views
+            <span>{{clip.view_count}}</span></p>
+          <header>
+            <!-- https://dev.twitch.tv/docs/embed/video-and-clips -->
+            <iframe
+                :src="formatUrl(clip.url)"
+                autoplay="false"
+                height="360"
+                width="640"
+                frameborder="0"
+                scrolling="no"
+                allowfullscreen="true">
+            </iframe>
+          </header>
+          <main>
+            <p>
+              <span class="badge badge-primary">{{clip.creator_name}}</span> a clipé pour
+              <span class="badge badge-primary">{{clip.broadcaster_name}}</span></p>
+          </main>
         </div>
+
       </li>
     </ul>
   </div>
@@ -20,63 +44,14 @@
 import { mapActions } from 'vuex';
 
 import { storeKey, fetchKey } from '../helpers/session';
-import { getAllClipsNoPromise } from '../helpers/twitch';
+import { getAllClips } from '../helpers/twitch';
 
 export default {
   props: ['env'],
   data() {
     return {
       twitchHash: document.location.hash,
-      clips: [
-        {
-          id: 'TawdryAthleticBeefTooSpicy',
-          url: 'https://clips.twitch.tv/TawdryAthleticBeefTooSpicy',
-          embed_url: 'https://clips.twitch.tv/embed?clip=TawdryAthleticBeefTooSpicy',
-          broadcaster_id: '132041668',
-          broadcaster_name: 'Carbow',
-          creator_id: '125699727',
-          creator_name: 'PtitFonsde',
-          video_id: '516668179',
-          game_id: '488552',
-          language: 'fr',
-          title: "Je t'ai vu pharah !",
-          view_count: 9,
-          created_at: '2019-12-03T21:43:07Z',
-          thumbnail_url: 'https://clips-media-assets2.twitch.tv/AT-cm%7C578676682-preview-480x272.jpg',
-        },
-        {
-          id: 'AntediluvianGoodSlothKappaPride',
-          url: 'https://clips.twitch.tv/AntediluvianGoodSlothKappaPride',
-          embed_url: 'https://clips.twitch.tv/embed?clip=AntediluvianGoodSlothKappaPride',
-          broadcaster_id: '132041668',
-          broadcaster_name: 'Carbow',
-          creator_id: '117238362',
-          creator_name: 'machja2a',
-          video_id: '',
-          game_id: '488552',
-          language: 'fr',
-          title: "[FR/EN] Let's rank",
-          view_count: 9,
-          created_at: '2019-09-23T20:03:58Z',
-          thumbnail_url: 'https://clips-media-assets2.twitch.tv/35758059280-offset-4442-preview-480x272.jpg',
-        },
-        {
-          id: 'MoldySillyCrowPermaSmug',
-          url: 'https://clips.twitch.tv/MoldySillyCrowPermaSmug',
-          embed_url: 'https://clips.twitch.tv/embed?clip=MoldySillyCrowPermaSmug',
-          broadcaster_id: '132041668',
-          broadcaster_name: 'Carbow',
-          creator_id: '125699727',
-          creator_name: 'PtitFonsde',
-          video_id: '516668179',
-          game_id: '488552',
-          language: 'fr',
-          title: "[FR/EN] On va pousser l'alt pour atteindre le niveau 25 !",
-          view_count: 4,
-          created_at: '2019-12-03T22:16:52Z',
-          thumbnail_url: 'https://clips-media-assets2.twitch.tv/258110113-offset-6352-preview-480x272.jpg',
-        },
-      ],
+      clips: [],
     };
   },
   methods: {
@@ -86,11 +61,22 @@ export default {
     }),
     async updateClips() {
       const broadcasterId = fetchKey('sub');
-      getAllClipsNoPromise(broadcasterId)
-        .then((clips) => {
-          this.clips = clips;
-          console.log('clipeuh', clips);
-        });
+      this.clips = await getAllClips(broadcasterId);
+    },
+    formatUrl(url) {
+      // https://clips.twitch.tv/embed?clip=IncredulousAbstemiousFennelImGlitch
+      // https://clips.twitch.tv/TawdryAthleticBeefTooSpicy
+      const code = url.split('.tv/')[1];
+      return `https://clips.twitch.tv/embed?clip=${code}&autoplay=false`;
+    },
+    formatDate(createdAt) {
+      const event = new Date(createdAt);
+      return event.toLocaleDateString('fr-FR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
     },
   },
   computed: {
@@ -123,11 +109,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+iframe {
+  box-shadow: #000000 0px 4px 15px;
+  margin: 1em 0;
+}
+.dashboard {
+  background-color: #0e0e10;
+  color: white;
+}
+.clips-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.clip-item {
+  margin: 3em 0;
+}
 pre {
   background-color: gray;
   color: white;
 }
 li {
   list-style: none;
+  padding: 1em;
+}
+ul {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

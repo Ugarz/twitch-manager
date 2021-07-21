@@ -26,7 +26,7 @@ export function getUserInfos(accessToken) {
 }
 
 export function getAllClips(broadcasterId) {
-  console.log('Fetching clips for', broadcasterId);
+  console.log('getAllClips Fetching clips for', broadcasterId);
   const options = {
     url: 'https://api.twitch.tv/helix/clips',
     qs: {
@@ -38,15 +38,16 @@ export function getAllClips(broadcasterId) {
   };
   return rp(options)
     .then((clips) => {
-      console.log('Clips found !', clips);
-      console.log('Data found !', clips.data);
-      return clips.data;
+      console.log('Clips found !');
+      const parsedClips = JSON.parse(clips);
+      console.log('Data found !', parsedClips.data);
+      return parsedClips.data;
     })
     .catch((error) => console.log('Whoops error while fetching', error));
 }
 
 export function getAllClipsNoPromise(broadcasterId) {
-  console.log('Fetching clips for', broadcasterId);
+  console.log('getAllClipsNoPromise Fetching clips for', broadcasterId);
 
   const options = {
     url: `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}`,
@@ -57,14 +58,15 @@ export function getAllClipsNoPromise(broadcasterId) {
 
   function callback(error, response, clips) {
     if (!error && response.statusCode === 200) {
-      console.log('clipsssss', clips.data[0].id);
       // const clips = JSON.parse(body);
       return clips.data;
     }
     throw new Error('Error while fetching clips');
   }
 
-  return r(options, callback);
+  return r(options, callback).then((clips) => {
+    console.log('clipsssss', clips);
+  });
 }
 
 export function getClip(broadcasterId, clipId) {
